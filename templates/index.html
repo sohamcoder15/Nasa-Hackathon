@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rain Parade — Will it rain on my parade?</title>
+
+  <!-- Google fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <!-- <link rel="stylesheet" href="style.css"> -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+   
+</head>
+<body>
+  <div class="site">
+
+    <!-- Top nav (fixed) -->
+    <header class="topbar">
+      <div class="container nav-inner">
+        <h1 class="brand">RAIN PARADE</h1>
+        <nav class="navlinks">
+          <a href="#about">About</a>
+          <a href="#how-it-works">How It Works</a>
+          <a href="#nasa">NASA Challenge</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container hero-grid">
+          <!-- floating decorative icons (SVG placeholders) -->
+          <div class="float float-sun" aria-hidden="true">☀️</div>
+          <div class="float float-drops" aria-hidden="true">💧</div>
+          <div class="float float-cloud" aria-hidden="true">☁️</div>
+          <div class="float float-spark" aria-hidden="true">✨</div>
+
+          <!-- left mascot image (hidden on small screens) -->
+          <div class="hero-left">
+            <img class="mascot" src="https://static.wixstatic.com/media/a5b4fe_c81904e96ed549e8afe2b607daad45bf~mv2.png?originWidth=384&originHeight=384" alt="Nimbus mascot">
+          </div>
+
+          <!-- right large type + card -->
+          <div class="hero-right">
+            <h2 class="hero-title">
+              WILL IT<br>RAIN ON<br>MY PARADE?
+            </h2>
+
+            <div class="hero-sub row">
+              <p class="desc">
+                Discover if Mother Nature will crash your outdoor plans with our NASA-powered weather prediction tool.
+              </p>
+
+              <div class="card form-card">
+                <form id="forecast-form">
+                  <label class="label">Your City
+                    <input id="city" name="city" type="text" placeholder="e.g., New York" required>
+                  </label>
+                  <label class="label">Event Date
+                    <input id="date" name="date" type="date" required>
+                  </label>
+                  <button id="check-btn" type="submit" class="btn primary">Check Forecast</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="results-section" class="section secondary hidden">
+  <div class="container">
+    <h3 id="cityName" class="section-title"></h3>
+
+    <div id="result" class="cards-grid" role="region" aria-live="polite">
+      <div class="step">
+        <div class="icon">🌡️</div>
+        <h4>Avg. Temperature</h4>
+        <p><span id="avgTemp"></span> °C</p>
+      </div>
+      <div class="step">
+        <div class="icon">🌧️</div>
+        <h4>Avg. Rainfall</h4>
+        <p><span id="avgRain"></span> mm</p>
+      </div>
+      <div class="step">
+        <div class="icon">🌬️</div>
+        <h4>Avg. Wind Speed</h4>
+        <p><span id="avgWind"></span> m/s</p>
+      </div>
+      <div class="step">
+       <div class="icon">🌬️</div>
+       <h4>Air Quality</h4>
+       <p><span id="airQualityValue">--</span></p>
+     </div>
+      
+    </div>
+
+    <div id="specificDay" class="specific-day-card hidden"></div>
+    <div id="advice-section" class="advice-container hidden">
+  <h4> Nimbus's Advice:</h4>
+  <ul id="adviceList"></ul>
+</div>
+
+    <div class="chart-container hidden">
+      <canvas id="forecastChart"></canvas>
+    </div>
+
+    <div id="forecastTable" class="table-container hidden" aria-label="Forecast data table"></div>
+  </div>
+</section>
+
+      <!-- HOW IT WORKS -->
+      <section id="how-it-works" class="section secondary">
+        <div class="container">
+          <div class="section-grid">
+            <div class="col-left">
+              <div class="kicker">01.</div>
+              <h3 class="section-title">HOW IT WORKS</h3>
+            </div>
+            <div class="col-right cards-grid">
+              <div class="step">
+                <div class="icon">📍</div>
+                <h4>Enter Your Details</h4>
+                <p>Tell us the city and date for your big event. The more specific, the better!</p>
+              </div>
+              <div class="step">
+                <div class="icon">🛰️</div>
+                <h4>We Ask NASA</h4>
+                <p>Our system queries NASA datasets, analyzing atmospheric and satellite imagery.</p>
+              </div>
+              <div class="step">
+                <div class="icon">📅</div>
+                <h4>Get Your Forecast</h4>
+                <p>Receive a clear prediction: will it rain on your parade? Plan with confidence.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NASA SECTION -->
+      <section id="nasa" class="section grid-bg">
+        <div class="container nasa-grid">
+          <div class="nasa-left">
+            <h3 class="nasa-title">POWERED BY NASA DATA</h3>
+            <p class="nasa-desc">
+              Our prediction system isn't guesswork. We leverage NASA satellite data—global atmospheric models and precipitation measurements—to give you a scientifically-backed forecast for your special events.
+            </p>
+            <a href="#about" class="btn ghost">Learn About The Challenge →</a>
+          </div>
+          <div class="nasa-right">
+            <div class="nasa-image-wrap">
+              <img src="https://static.wixstatic.com/media/a5b4fe_6af38cd2e8934327b08e9e0f14b5f90e~mv2.png?originWidth=576&originHeight=576" alt="NASA visualization" class="nasa-image">
+              <div class="badge">🛰️</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MASCOT -->
+      <section class="section purple">
+        <div class="container centercol">
+          <img src="https://static.wixstatic.com/media/a5b4fe_f4a90816d5a44e21872b4bb0f70cedb3~mv2.png?originWidth=192&originHeight=192" alt="Nimbus close" class="mascot-large">
+          <h3 class="section-title white">MEET NIMBUS, YOUR WEATHER GUIDE</h3>
+          <p class="muted">Nimbus is more than just a cute cloud. He's your personal guide to parade-perfect weather, making complex NASA data feel simple, friendly, and fun.</p>
+        </div>
+      </section>
+
+      <!-- PLAN WITH CONFIDENCE (carousel cards horizontally scrollable) -->
+      <section class="section secondary">
+        <div class="container">
+          <h3 class="section-title center">PLAN WITH CONFIDENCE</h3>
+          <div class="card-strip">
+            <div class="plan-card">
+              <img src="https://static.wixstatic.com/media/a5b4fe_e2c9d2c62cf24defa8b9ced3dfafda70~mv2.png?originWidth=256&originHeight=384" alt="Weddings">
+              <div class="plan-caption">Weddings</div>
+            </div>
+            <div class="plan-card">
+              <img src="https://static.wixstatic.com/media/a5b4fe_b9804086d1ee45f6845833b6559ad992~mv2.png?originWidth=256&originHeight=384" alt="Picnics">
+              <div class="plan-caption">Picnics</div>
+            </div>
+            <div class="plan-card">
+              <img src="https://static.wixstatic.com/media/a5b4fe_6eadf3cad9e040568249e3c498253282~mv2.png?originWidth=256&originHeight=384" alt="Parades">
+              <div class="plan-caption">Parades</div>
+            </div>
+            <div class="plan-card">
+              <img src="https://static.wixstatic.com/media/a5b4fe_a52bcf1cccfa4965815c7972a1f4e89c~mv2.png?originWidth=256&originHeight=384" alt="Festivals">
+              <div class="plan-caption">Festivals</div>
+            </div>
+            <div class="plan-card">
+              <img src="https://static.wixstatic.com/media/a5b4fe_4ee03a10e896439fba202c1ca7d0d6a8~mv2.png?originWidth=256&originHeight=384" alt="Outdoor Parties">
+              <div class="plan-caption">Outdoor Parties</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="section center">
+        <div class="container about-wrap">
+          <h3 class="section-title">A NASA SPACE APPS CHALLENGE PROJECT</h3>
+          <p class="muted">
+            "Will It Rain On My Parade?" was born from the NASA International Space Apps Challenge. Our mission is to make complex climate and weather data accessible, useful and engaging. We believe that with the power of open data we can help people make better decisions and plan for a brighter future.
+          </p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2025 Rain Parade — Built for NASA Space Apps</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- <script src="script.js"></script> -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
